@@ -1,0 +1,9 @@
+#include <iostream>
+using namespace std;
+struct Coach{ string data; Coach* next; Coach(string d){data=d; next=NULL;} };
+Coach* head=NULL;
+void addBegin(string d){ Coach* n=new Coach(d); n->next=head; head=n; }
+void addEnd(string d){ Coach* n=new Coach(d); if(!head){head=n; return;} Coach* t=head; while(t->next) t=t->next; t->next=n; }
+void removeCoach(string d){ if(!head) return; if(head->data==d){ Coach* t=head; head=head->next; delete t; return;} Coach* t=head; while(t->next && t->next->data!=d) t=t->next; if(t->next){ Coach* del=t->next; t->next=del->next; delete del; } }
+void display(){ Coach* t=head; while(t){ cout<<t->data<<" -> "; t=t->next; } cout<<"NULL\n"; }
+int main(){ addEnd("Coach1"); addEnd("Coach2"); addEnd("Coach3"); addBegin("Engine"); display(); removeCoach("Coach2"); display(); return 0; }
